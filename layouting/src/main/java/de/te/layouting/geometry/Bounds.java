@@ -7,7 +7,8 @@ public class Bounds implements IBounds {
 	private double width;
 	private double height;
 
-	public Bounds() {}
+	public Bounds() {
+	}
 
 	public Bounds(double x, double y, double width, double height) {
 		this.x = x;
@@ -91,17 +92,49 @@ public class Bounds implements IBounds {
 
 	@Override
 	public IBounds place(IBounds bounds) {
-		return place(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
+		return place(bounds.getX(), bounds.getY(), bounds.getWidth(),
+				bounds.getHeight());
 	}
 
 	@Override
 	public boolean overlap(IBounds bounds) {
-		return (x <= (bounds.getX() + bounds.getWidth())) && (bounds.getX() <= (x + width)) && (y <= (bounds.getY() + bounds.getHeight())) && (bounds.getY() <= (y + height));
+		return (x <= (bounds.getX() + bounds.getWidth()))
+				&& (bounds.getX() <= (x + width))
+				&& (y <= (bounds.getY() + bounds.getHeight()))
+				&& (bounds.getY() <= (y + height));
 	}
 
 	@Override
 	public IBounds clone() {
 		return new Bounds(this.x, this.y, this.width, this.height);
+	}
+
+	@Override
+	public String toString() {
+		return getClass().getName() + "[x=" + x + ",y=" + y + ",width=" + width
+				+ ",height=" + height + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return toString().hashCode();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof IBounds))
+			return false;
+
+		IBounds b = (IBounds) o;
+		if (b.getX() != x)
+			return false;
+		if (b.getY() != y)
+			return false;
+		if (b.getWidth() != width)
+			return false;
+		if (b.getHeight() != height)
+			return false;
+		return true;
 	}
 
 }
